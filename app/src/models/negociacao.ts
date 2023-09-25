@@ -1,13 +1,11 @@
-import { Imprimivel } from "../utils/imprimivel.js";
+import { Modelo } from "../interfaces/modelo.js";
 
-export class Negociacao extends Imprimivel {
+export class Negociacao implements Modelo<Negociacao> {
     constructor(
         private _data: Date,
         public readonly quantidade: number,
         public readonly valor: number
-    ) {
-        super()
-    }
+    ) { }
 
     get volume(): number {
         return this.quantidade * this.valor;
@@ -32,5 +30,12 @@ export class Negociacao extends Imprimivel {
         const quantidade = parseInt(quantidadeString);
         const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
+    }
+
+    public ehIgual(negociacao: Negociacao): boolean {
+        return this.data.getDate() == negociacao.data.getDate()
+            && this.data.getMonth() == negociacao.data.getMonth()
+            && this.data.getFullYear() == negociacao.data.getFullYear()
+
     }
 }
